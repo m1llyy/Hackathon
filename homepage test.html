@@ -15,38 +15,12 @@
             padding-bottom: 5px; /* Adjust the bottom padding to reduce the height */
         }
         .navbar-brand img {
-            max-height: 100px; /* Adjust the max-height of the logo */
+            max-height: 80px; /* Adjust the max-height of the logo */
         }
 
-        /* Style for chat container */
-        #chat-container {
-            max-width: 400px;
-            margin: 0 auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            margin-top: 50px;
-        }
-
-        /* Style for chat messages */
-        .chat-message {
-            margin-bottom: 10px;
-            font-family: 'Courier New', Courier, monospace; /* Custom font */
-            font-size: 16px; /* Adjust font size */
-        }
-
-        /* Style for bot messages */
-        .bot-message {
-            font-weight: bold;
-            color: black; /* Change the bot's text color to black */
-            font-family: 'Courier New', Courier, monospace; /* Custom font */
-            font-size: 16px; /* Adjust font size */
-        }
-
-        /* Style for send button */
-        .send-button {
-            background-color: green; /* Change button background color to green */
-            border-color: green; /* Change button border color to green */
+        /* Style for song buttons */
+        .song-button {
+            margin: 5px;
         }
     </style>
 
@@ -60,60 +34,63 @@
             <a class="navbar-brand" href="#"><img src="suggestify.png" alt="Suggestify Logo"></a>
             <div>
                 <a class="sign-up" href="signup.html" style="color:white">Sign Up</a>
-                <a class="sign-in" href="Sign In Page.html" style="color: white;">Sign In</a>
+                <a class="sign-in" href="signin.html" style="color: white;">Sign In</a>
+                <a class="sign-out" onclick="logOut()" style="color: white;">Sign Out</a>
             </div>
         </div>
     </nav>
     <div class="container mt-5">
         <div class="text-center">
             <h1 style="font-family: 'Roboto', sans-serif;">Welcome to Suggestify</h1>
-            <p style="font-family: 'Roboto', sans-serif;">Ready for your next great read, listen, or watch? You're in the right place!</p>
-            <p style="font-family: 'Roboto', sans-serif;">Explore our vast collection of books, movies, and music recommendations tailored just for you.</p>
+            <div id="user-info"></div>
+            <p style="font-family: 'Roboto', sans-serif;">Ready for your next great listen? You're in the right place!</p>
+    
             <!-- Add more content or sections as needed -->
         </div>
     </div>
 
-    <!-- Chat interface -->
-    <div id="chat-container" class="container">
-        <!-- Text on top of the chat box -->
-        <div class="text-center mb-3">
-            <p style="font-family: 'Roboto', sans-serif;">Let me help you find what you're looking for!</p>
+    <!-- Song buttons -->
+    <div class="container mt-3 text-center">
+        <h2>Choose a Song:</h2>
+        <div id="song-options">
+            <button class="btn btn-primary song-button" onclick="executePythonCode(1)">Mercy by Shawn Mendez</button>
+            <button class="btn btn-primary song-button" onclick="executePythonCode(2)">Respect by Aretha Franklin</button>
         </div>
-        <!-- Chat box -->
-        <div id="chat-box"></div>
-        <!-- User input field and send button -->
-        <input type="text" id="user-input" class="form-control" placeholder="Type your message...">
-        <button class="btn btn-primary mt-2 send-button" onclick="sendMessage()">Send</button>
     </div>
 
     <!-- JavaScript code for sending and receiving messages -->
     <script>
-        function sendMessage() {
-            const userInput = document.getElementById("user-input").value;
-            const chatBox = document.getElementById("chat-box");
+        // Function to execute Python code
+        function executePythonCode(songNumber) {
+            // Hide the song buttons
+            document.getElementById("song-options").style.display = "none";
 
-            // Display user message in chat box
-            chatBox.innerHTML += `<div class="chat-message">You: ${userInput}</div>`;
+            fetch('/process_input', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({user_input: songNumber.toString()})
+            })
+            .then(response => response.json())
+            .then(data => {
+                displaySongDetails(data.response);
+            });
+        }
 
-            // Check user input and provide static movie recommendations
-            let botResponse;
-            switch (userInput.toLowerCase()) {
-                case 'action':
-                    botResponse = "Here are some action movies: 1. Die Hard, 2. The Dark Knight, 3. Terminator 2";
-                    break;
-                case 'comedy':
-                    botResponse = "Here are some comedy movies: 1. Superbad, 2. The Hangover, 3. Bridesmaids";
-                    break;
-                case 'drama':
-                    botResponse = "Here are some drama movies: 1. The Shawshank Redemption, 2. Forrest Gump, 3. Titanic";
-                    break;
-                default:
-                    botResponse = "Sorry, I couldn't understand your request.";
-            }
-
-            // Display bot response (movie recommendations) in chat box
-            chatBox.innerHTML += `<div class="chat-message bot-message">Bot: ${botResponse}</div>`;
+        // Function to display song details
+        function displaySongDetails(songDetails) {
+            const songInfo = `<div class="container mt-3 text-center">
+                                <h2>Song Details:</h2>
+                                <p>Name: ${songDetails[0]}</p>
+                                <p>Artist: ${songDetails[1]}</p>
+                                <p>Genre: ${songDetails[3]}</p>
+                              </div>`;
+            document.body.innerHTML += songInfo;
         }
     </script>
 </body>
 </html>
+
+
+

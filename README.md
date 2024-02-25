@@ -1,6 +1,6 @@
 Hackathon 2024 
 
-Adele
+Adel
 Bella
 Chaya
 Cindy

@@ -4,7 +4,7 @@ Adele
 Bella
 Chaya
 Cindy
-Jayden
+Jaidyn
 Milly
 
 *trying* to make a AI music recommender

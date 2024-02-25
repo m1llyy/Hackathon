@@ -15,7 +15,7 @@
             padding-bottom: 5px; /* Adjust the bottom padding to reduce the height */
         }
         .navbar-brand img {
-            max-height: 60px; /* Adjust the max-height of the logo */
+            max-height: 80px; /* Adjust the max-height of the logo */
         }
 
         /* Style for chat container */
@@ -31,21 +31,33 @@
         /* Style for chat messages */
         .chat-message {
             margin-bottom: 10px;
+            font-family: 'Courier New', Courier, monospace; /* Custom font */
+            font-size: 16px; /* Adjust font size */
         }
 
         /* Style for bot messages */
         .bot-message {
             font-weight: bold;
             color: black; /* Change the bot's text color to black */
+            font-family: 'Courier New', Courier, monospace; /* Custom font */
+            font-size: 16px; /* Adjust font size */
+        }
+
+        /* Style for send button */
+        .send-button {
+            background-color: green; /* Change button background color to green */
+            border-color: green; /* Change button border color to green */
         }
     </style>
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
     <title>Suggestify</title>
 </head>
 <body>
     <nav class="navbar navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="#"><img src="suggestify.png" alt="Suggestify"></a>
+            <a class="navbar-brand" href="#"><img src="suggestify.png" alt="Suggestify Logo"></a>
             <div>
                 <a class="sign-up" href="signup.html" style="color:white">Sign Up</a>
                 <a class="sign-in" href="Sign In Page.html" style="color: white;">Sign In</a>
@@ -54,9 +66,9 @@
     </nav>
     <div class="container mt-5">
         <div class="text-center">
-            <h1>Welcome to Suggestify</h1>
-            <p>Ready for your next great read, listen, or watch? You're in the right place!</p>
-            <p>Explore our vast collection of books, movies, and music recommendations tailored just for you.</p>
+            <h1 style="font-family: 'Roboto', sans-serif;">Welcome to Suggestify</h1>
+            <p style="font-family: 'Roboto', sans-serif;">Ready for your next great read, listen, or watch? You're in the right place!</p>
+            <p style="font-family: 'Roboto', sans-serif;">Explore our vast collection of books, movies, and music recommendations tailored just for you.</p>
             <!-- Add more content or sections as needed -->
         </div>
     </div>
@@ -65,13 +77,13 @@
     <div id="chat-container" class="container">
         <!-- Text on top of the chat box -->
         <div class="text-center mb-3">
-            <p>Let me help you find what you're looking for!</p>
+            <p style="font-family: 'Roboto', sans-serif;">Let me help you find what you're looking for!</p>
         </div>
         <!-- Chat box -->
         <div id="chat-box"></div>
         <!-- User input field and send button -->
         <input type="text" id="user-input" class="form-control" placeholder="Type your message...">
-        <button class="btn btn-primary mt-2" onclick="sendMessage()">Send</button>
+        <button class="btn btn-primary mt-2 send-button" onclick="sendMessage()">Send</button>
     </div>
 
     <!-- JavaScript code for sending and receiving messages -->
@@ -83,23 +95,24 @@
             // Display user message in chat box
             chatBox.innerHTML += `<div class="chat-message">You: ${userInput}</div>`;
             
-            // Send user message to the server
-            const response = await fetch('/chat', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ message: userInput })
-            });
+            // Send user message to the server (you'll need to implement this part)
+            // Receive bot response from the server (you'll need to implement this part)
 
-            const responseData = await response.json();
-
-            // Display bot response in chat box
-            chatBox.innerHTML += `<div class="chat-message bot-message">Bot: ${responseData.message}</div>`;
+            // For demonstration purposes, I'll just simulate a bot response after a short delay
+            setTimeout(() => {
+                // Simulated bot response (replace with actual recommendations)
+                const botResponse = "Here are some recommendations for you...";
+                chatBox.innerHTML += `<div class="chat-message bot-message">Bot: ${botResponse}</div>`;
+            }, 1000);
         }
     </script>
 </body>
 </html>
+
+
+
+
+
 
 
 

@@ -88,31 +88,32 @@
 
     <!-- JavaScript code for sending and receiving messages -->
     <script>
-        async function sendMessage() {
+        function sendMessage() {
             const userInput = document.getElementById("user-input").value;
             const chatBox = document.getElementById("chat-box");
-            
+
             // Display user message in chat box
             chatBox.innerHTML += `<div class="chat-message">You: ${userInput}</div>`;
-            
-            // Send user message to the server (you'll need to implement this part)
-            // Receive bot response from the server (you'll need to implement this part)
 
-            // For demonstration purposes, I'll just simulate a bot response after a short delay
-            setTimeout(() => {
-                // Simulated bot response (replace with actual recommendations)
-                const botResponse = "Here are some recommendations for you...";
-                chatBox.innerHTML += `<div class="chat-message bot-message">Bot: ${botResponse}</div>`;
-            }, 1000);
+            // Check user input and provide static movie recommendations
+            let botResponse;
+            switch (userInput.toLowerCase()) {
+                case 'action':
+                    botResponse = "Here are some action movies: 1. Die Hard, 2. The Dark Knight, 3. Terminator 2";
+                    break;
+                case 'comedy':
+                    botResponse = "Here are some comedy movies: 1. Superbad, 2. The Hangover, 3. Bridesmaids";
+                    break;
+                case 'drama':
+                    botResponse = "Here are some drama movies: 1. The Shawshank Redemption, 2. Forrest Gump, 3. Titanic";
+                    break;
+                default:
+                    botResponse = "Sorry, I couldn't understand your request.";
+            }
+
+            // Display bot response (movie recommendations) in chat box
+            chatBox.innerHTML += `<div class="chat-message bot-message">Bot: ${botResponse}</div>`;
         }
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-

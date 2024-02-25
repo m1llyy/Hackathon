@@ -15,8 +15,28 @@
             padding-bottom: 5px; /* Adjust the bottom padding to reduce the height */
         }
         .navbar-brand img {
-            max-height: 40px; /* Adjust the max-height of the logo */
-            line-height: 30px; /* Adjust the line height to center the logo vertically */
+            max-height: 60px; /* Adjust the max-height of the logo */
+        }
+
+        /* Style for chat container */
+        #chat-container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-top: 50px;
+        }
+
+        /* Style for chat messages */
+        .chat-message {
+            margin-bottom: 10px;
+        }
+
+        /* Style for bot messages */
+        .bot-message {
+            font-weight: bold;
+            color: black; /* Change the bot's text color to black */
         }
     </style>
 
@@ -28,7 +48,7 @@
             <a class="navbar-brand" href="#"><img src="suggestify.png" alt="Suggestify"></a>
             <div>
                 <a class="sign-up" href="signup.html" style="color:white">Sign Up</a>
-                <a class="sign-in" href="#" style="color: white;">Sign In</a>
+                <a class="sign-in" href="Sign In Page.html" style="color: white;">Sign In</a>
             </div>
         </div>
     </nav>
@@ -40,5 +60,46 @@
             <!-- Add more content or sections as needed -->
         </div>
     </div>
+
+    <!-- Chat interface -->
+    <div id="chat-container" class="container">
+        <!-- Text on top of the chat box -->
+        <div class="text-center mb-3">
+            <p>Let me help you find what you're looking for!</p>
+        </div>
+        <!-- Chat box -->
+        <div id="chat-box"></div>
+        <!-- User input field and send button -->
+        <input type="text" id="user-input" class="form-control" placeholder="Type your message...">
+        <button class="btn btn-primary mt-2" onclick="sendMessage()">Send</button>
+    </div>
+
+    <!-- JavaScript code for sending and receiving messages -->
+    <script>
+        async function sendMessage() {
+            const userInput = document.getElementById("user-input").value;
+            const chatBox = document.getElementById("chat-box");
+            
+            // Display user message in chat box
+            chatBox.innerHTML += `<div class="chat-message">You: ${userInput}</div>`;
+            
+            // Send user message to the server
+            const response = await fetch('/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message: userInput })
+            });
+
+            const responseData = await response.json();
+
+            // Display bot response in chat box
+            chatBox.innerHTML += `<div class="chat-message bot-message">Bot: ${responseData.message}</div>`;
+        }
+    </script>
 </body>
 </html>
+
+
+

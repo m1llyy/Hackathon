@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,10 +20,49 @@
             <img class="image" src="uggestify.png" style="max-width:200px;"/>
             <div>
 
-            <a class="sign-up" href="signup.html" style="color:white">Sign Up</a>
-            <a class="sign-in" href="#" style="color: white;">Sign In</a>
+            <a class="sign-up" href="signup.html" style="color:white; margin-right:10px;">Sign Up</a>
+            <a class="sign-in" href="signin.html" style="color: white;  margin-right:10px;">Sign In</a>
+            <a class="about-us" href="about-us.html" style="color: white;">About Us</a>
+
             </div>
         </div>
     </nav>
+
+    <!-- <div class="container mt-5">
+        <form>
+            <input type="text" name="user_input">
+            <button type="submit">Get Recommendations</button>
+        </form>
+
+
+        <ul>
+            {% for song in recommended_songs %}
+            <li>{{ song }}</li>
+            {% endfor %}
+        </ul>
+    
+    </div> -->
+
+
+</nav>
+
+    <div class="container mt-5">
+        <form action="/recommend" method="post">
+            <div class="form-group">
+                <label for="user_input">Enter something:</label>
+                <input type="text" class="form-control" id="user_input" name="user_input">
+            </div>
+            <button type="submit" class="btn btn-primary">Get Recommendations</button>
+        </form>
+
+        <h2>Recommended Songs:</h2>
+        <ul>
+            {% for song in recommended_songs %}
+            <li>{{ song }}</li>
+            {% endfor %}
+        </ul>    
+    
+    </div>
+
 </body>
 </html>

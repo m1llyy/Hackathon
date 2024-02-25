@@ -1,17 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Sign In</title>
     <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
+</head>
+<body>
     <h1>Suggestify</h1>
     <p>Welcome back! Sign in to your Suggestify account.</p>
-    <form method="post" action='process_signin.php'>
-      <fieldset>
-        <label for="email">Enter Your Email: <input id="email" name="email" type="email" required /></label>
-        <label for="password">Enter Your Password: <input id="password" name="password" type="password" required /></label>
-      </fieldset>
-      <input type="submit" value="Sign In" />
+    <div id="error-message" style="color: red;"></div>
+    <form onsubmit="signIn(event)">
+        <fieldset>
+            <label for="email">Enter Your Email: <input id="email" name="email" type="email" required /></label>
+            <label for="password">Enter Your Password: <input id="password" name="password" type="password" required /></label>
+        </fieldset>
+        <input type="submit" value="Sign In" />
     </form>
-  </body>
-  </html>
+
+    <script>
+        function signIn(event) {
+            event.preventDefault();
+
+            // Retrieve form data
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Retrieve stored user data from local storage
+            const storedEmail = localStorage.getItem('email');
+            const storedPassword = localStorage.getItem('password');
+
+            // Check if entered credentials match stored data
+            if (email === storedEmail && password === storedPassword) {
+                // Successful login, redirect or perform further actions
+                // For now, just redirect to home page
+                window.location.href = 'homepage.html';
+            } else {
+                // Display error message
+                document.getElementById('error-message').innerText = "Invalid email or password. Please try again.";
+            }
+        }
+    </script>
+</body>
+</html>

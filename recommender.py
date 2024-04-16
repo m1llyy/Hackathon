@@ -1,6 +1,6 @@
 from openai import OpenAI 
 import os 
-os.environ["OPENAI_API_KEY"] = "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" 
+os.environ["OPENAI_API_KEY"] = "" 
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 def recommend_similar_songs(input_text):
